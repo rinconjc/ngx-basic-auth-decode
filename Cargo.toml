@@ -1,0 +1,17 @@
+[package]
+name = "ngx-auth-decode"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type=["cdylib"]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+required-features = ["linux"]
+
+[dependencies]
+base64 = "0.21.5"
+libc = "0.2.151"
+ngx = "0.4.1"
+
+[features]
+linux = []
