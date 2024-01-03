@@ -321,7 +321,6 @@ impl HTTPModule for Module {
     type SrvConf = ();
     type LocConf = ();
 
-    // static ngx_int_t ngx_http_orig_dst_add_variables(ngx_conf_t *cf)
     unsafe extern "C" fn preconfiguration(cf: *mut ngx_conf_t) -> ngx_int_t {
         for mut v in ngx_basic_auth_decode_vars {
             if v.name.len == 0 {
@@ -340,7 +339,7 @@ impl HTTPModule for Module {
 
 fn masked(s: &String) -> String {
     format!(
-        "{}*****{}",
+        "{}******{}",
         s.chars().next().unwrap_or(' '),
         s.chars().last().unwrap_or(' ')
     )

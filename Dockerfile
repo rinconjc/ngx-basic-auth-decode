@@ -1,7 +1,7 @@
 ARG NGX_VERSION=1.23.3
 ARG NGX_DEBUG=false
 
-# --- builder: build all examples
+# --- builder: build
 FROM rust:slim-bullseye as build
 ARG NGX_VERSION
 ARG NGX_DEBUG
@@ -11,15 +11,14 @@ RUN --mount=type=cache,target=/var/cache/apt <<EOF
     export DEBIAN_FRONTEND=noninteractive
     apt-get -qq update
     apt-get -qq install --yes --no-install-recommends --no-install-suggests \
-        libclang-dev \
-        libssl-dev \
-        pkg-config \
-        git \
-        grep \
-        gawk \
-        gnupg2 \
-        sed \
-        make
+    libclang-dev \
+    libssl-dev \
+    pkg-config \
+    git \
+    grep \
+    gnupg2 \
+    sed \
+    make
     git config --global --add safe.directory /project
 EOF
 

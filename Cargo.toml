@@ -1,5 +1,5 @@
 [package]
-name = "ngx-auth-decode"
+name = "ngx-basic-auth-decode"
 version = "0.1.0"
 edition = "2021"
 
