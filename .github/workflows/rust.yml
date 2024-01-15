@@ -21,6 +21,10 @@ jobs:
           docker_id=$(docker create --rm ngx-basic-auth-decode)
           docker cp $docker_id:/etc/nginx/modules/libngx_basic_auth_decode.so ./
           docker stop $docker_id
+
+      - name: version
+        run: echo "::set-output name=version::$(cargo read-metadata | jq -rc .version)"
+        id: version
       - name: release
         uses: actions/create-release@v1
         id: create_release
