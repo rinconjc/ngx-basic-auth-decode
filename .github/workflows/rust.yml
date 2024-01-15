@@ -28,7 +28,7 @@ jobs:
           draft: false
           prerelease: false
           release_name: ${{steps.version.output.version}}
-          tag_name: ${{github.sha}}
+          tag_name: $(cargo read-metadata | jq -rc .version)
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{github.token}}
