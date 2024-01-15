@@ -23,7 +23,11 @@ jobs:
           docker stop $docker_id
 
       - name: version
-        run: echo "::set-output name=version::$(cargo read-manifest | jq -rc .version)"
+        run: |
+          set -e
+          apt install jq          
+          version=$(cargo read-manifest | jq -rc .version)
+          echo "version=$version" >> $GITHUB_OUTPUT
         id: version
       - name: release
         uses: actions/create-release@v1
