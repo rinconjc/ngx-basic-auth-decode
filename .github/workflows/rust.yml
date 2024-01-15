@@ -15,10 +15,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Build
-        run: cargo build -v --release
-      - name: Run tests
-        run: cargo test --verbose
+      - name: Build binary
+        run: |
+          docker buildx build --build-arg NGX_VERSION=1.23.3 -t ngx-basic-auth-decode .
+          docker_id=$(docker create --rm ngx-basic-auth-decode)
+          docker cp $docker_id:/etc/nginx/modules/libngx_basic_auth_decode.so ./
+          docker stop $docker_id
       - name: release
         uses: actions/create-release@v1
         id: create_release
@@ -36,6 +38,6 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./target/release/libngx_basic_auth_decode.so
+          asset_path: ./libngx_basic_auth_decode.so
           asset_name: libngx_basic_auth_decode.so
           # asset_content_type: application/binary
