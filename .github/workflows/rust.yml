@@ -23,7 +23,7 @@ jobs:
           docker stop $docker_id
 
       - name: version
-        run: echo "::set-output name=version::$(cargo read-metadata | jq -rc .version)"
+        run: echo "::set-output name=version::$(cargo read-manifest | jq -rc .version)"
         id: version
       - name: release
         uses: actions/create-release@v1
