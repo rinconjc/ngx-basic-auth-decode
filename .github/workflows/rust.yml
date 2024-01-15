@@ -27,6 +27,7 @@ jobs:
           set -e
           sudo apt install jq          
           version=$(cargo read-manifest | jq -rc .version)
+          echo "version is $version"
           echo "version=$version" >> $GITHUB_OUTPUT
         id: version
       - name: release
@@ -35,8 +36,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: ${{steps.version.output.version}}
-          tag_name: ${{steps.version.output.version}}
+          release_name: "${{ steps.version.output.version }}"
+          tag_name: "${{ steps.version.output.version }}"
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{github.token}}
